@@ -1,8 +1,20 @@
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BonusServiceTest {
 
-    @org.junit.jupiter.api.Test
+    @ParameterizedTest
+    @CsvFileSource(resources = "/data.csv")
+    public void testCalculate(long expected, long amount, boolean registered) {
+        BonusService service = new BonusService();
+        long actual = service.calculate(amount, registered);
+        Assertions.assertEquals(expected, actual);
+    }
+
+   /* @org.junit.jupiter.api.Test
     void shouldCalculateForRegisteredAndUnderLimit() {
         BonusService service = new BonusService();
 
@@ -64,6 +76,6 @@ public class BonusServiceTest {
 
         // производим проверку (сравниваем ожидаемый и фактический):
         assertEquals(expected, actual);
-    }
+    } */
 
 }
